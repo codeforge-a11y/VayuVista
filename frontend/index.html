@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comprehensive weather intelligence dashboard</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#000000" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="icon" href="data:," />
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="topbar">
+
+  <div class="brand">
+    <img src="https://purepng.com/public/uploads/large/purepng.com-weather-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596142qx4ep.png" alt="Logo">
+    <h2>WeatherVista</h2>
+  </div>
+
+  <div class="search-bar">
+    <input id="cityInput" type="text" placeholder="Search city..." autocomplete="off"/>
+    <button onclick="searchWeather()">🔍</button>
+    <button onclick="detectLocation()">📍</button>
+  </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+<main class="dashboard">
+
+  <!-- ===== Smart Advice Section ===== -->
+  <section class="card advice-card">
+    <h1 id="adviceTitle">Weather Advice</h1>
+    <p id="adviceText">Search a city to see intelligent weather advice.</p>
+  </section>
+
+
+  <!-- ===== Weather + Forecast Grid ===== -->
+  <section class="weather-grid">
+
+    <!-- ===== LEFT: Current Weather ===== -->
+    <div class="card current-weather">
+
+      <!-- Hero Weather Card -->
+      <div class="weather-hero">
+        <div class="overlay"></div>
+
+        <div class="hero-top">
+          <h2 id="locationName">Hyderabad</h2>
+          <span id="currentTime">--:--</span>
+        </div>
+
+        <div class="hero-main">
+          <div id="weatherIcon" class="weather-icon">⛅</div>
+          <div>
+            <div id="temp" class="temperature">--°C</div>
+            <p id="condition">Condition</p>
+            <p id="feelsLike">Feels like --°C</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Details Grid -->
+      <div class="details-grid">
+        <div class="detail-item">💧 Humidity <b id="humidity">--</b></div>
+        <div class="detail-item">🌬 Wind <b id="wind">--</b></div>
+        <div class="detail-item">🌡 Pressure <b id="pressure">--</b></div>
+        <div class="detail-item">👁 Visibility <b id="visibility">--</b></div>
+        <div class="detail-item">☔ Rain <b id="rain">--</b></div>
+        <div class="detail-item">🌞 UV Index <b id="uv">--</b></div>
+      </div>
+
+      <!-- AQI -->
+      <div class="aqi-box">
+        <h3>Air Quality Index</h3>
+        <div class="aqi-ring">
+          <svg viewBox="0 0 120 120">
+            <circle class="bg-ring" cx="60" cy="60" r="52"></circle>
+            <circle class="progress-ring" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <div class="aqi-center">
+            <span id="aqiValue">--</span>
+            <p id="aqiText">Air Quality</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ===== RIGHT: Forecast & Charts ===== -->
+    <div class="card forecast-panel">
+
+      <div class="section-block">
+        <h3>Temperature Trend (24h)</h3>
+        <canvas id="tempChart"></canvas>
+      </div>
+
+      <div class="section-block">
+        <h3>Next 24 Hours</h3>
+        <div id="forecast12h" class="forecast-row"></div>
+      </div>
+
+      <div class="section-block">
+        <h3>7-Day Forecast</h3>
+        <div id="forecast7d" class="forecast-row"></div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ===== Map Section ===== -->
+  <section class="card map-section">
+    <h3>Location Map</h3>
+    <div id="map"></div>
+
+    <div class="chart-wrapper">
+      <canvas id="precipChart"></canvas>
+    </div>
+  </section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js");
+  });
+}
+</script>
+
+</body>
+</html>
