@@ -32,9 +32,17 @@ function detectLocation() {
 
 async function loadWeather(lat, lon, name) {
 
-  const weather = await fetch(
-    `${BASE_URL}/weather?lat=${lat}&lon=${lon}`
-  ).then(r => r.json());
+  try {
+    const response = await fetch(`${BASE_URL}/weather?lat=${lat}&lon=${lon}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const weather = await response.json();
+    console.log(weather); // check the data
+    return weather;
+  } catch (error) {
+    console.error("Failed to fetch weather:", error);
+  }
 
   document.getElementById("locationName").innerText = name;
   document.getElementById("temp").innerText =
