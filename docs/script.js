@@ -4,7 +4,11 @@ let tempChart = null;
 let precipChart = null;
 
 // 🔁 Change this after backend deployment
+<<<<<<< HEAD:docs/script.js
 const BASE_URL = "https://vayuvista.onrender.com/";
+=======
+const BASE_URL = "https://vayuvista.onrender.com";
+>>>>>>> c67118fcb653e44ace1199de721a42cd439a5d8d:frontend/script.js
 // Example after deploy:
 // const BASE_URL = "https://your-backend-name.onrender.com";
 

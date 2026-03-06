@@ -103,4 +103,8 @@ app.get("/aqi", async (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> c67118fcb653e44ace1199de721a42cd439a5d8d
