@@ -34,43 +34,46 @@ async function loadWeather(lat, lon, name) {
 
   try {
     const response = await fetch(`${BASE_URL}/weather?lat=${lat}&lon=${lon}`);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const weather = await response.json();
-    console.log(weather); // check the data
-    return weather;
+
+    console.log(weather);
+
+    document.getElementById("locationName").innerText = name;
+    document.getElementById("temp").innerText =
+      Math.round(weather.main.temp) + "°C";
+
+    document.getElementById("feelsLike").innerText =
+      "Feels like " + Math.round(weather.main.feels_like) + "°C";
+
+    document.getElementById("humidity").innerText =
+      weather.main.humidity + "%";
+
+    document.getElementById("wind").innerText =
+      weather.wind.speed + " m/s";
+
+    document.getElementById("pressure").innerText =
+      weather.main.pressure + " hPa";
+
+    document.getElementById("visibility").innerText =
+      (weather.visibility / 1000).toFixed(1) + " km";
+
+    document.getElementById("weatherIcon").innerText =
+      getWeatherEmoji(weather.weather[0].main);
+
+    loadRain(weather);
+    loadForecast(lat, lon);
+    loadUV(lat, lon);
+    loadAQI(lat, lon);
+    loadMap(lat, lon);
+
   } catch (error) {
     console.error("Failed to fetch weather:", error);
   }
-
-  document.getElementById("locationName").innerText = name;
-  document.getElementById("temp").innerText =
-    Math.round(weather.main.temp) + "°C";
-
-  document.getElementById("feelsLike").innerText =
-    "Feels like " + Math.round(weather.main.feels_like) + "°C";
-
-  document.getElementById("humidity").innerText =
-    weather.main.humidity + "%";
-
-  document.getElementById("wind").innerText =
-    weather.wind.speed + " m/s";
-
-  document.getElementById("pressure").innerText =
-    weather.main.pressure + " hPa";
-
-  document.getElementById("visibility").innerText =
-    (weather.visibility / 1000).toFixed(1) + " km";
-
-  document.getElementById("weatherIcon").innerText =
-    getWeatherEmoji(weather.weather[0].main);
-
-  loadRain(weather);
-  loadForecast(lat, lon);
-  loadUV(lat, lon);
-  loadAQI(lat, lon);
-  loadMap(lat, lon);
 }
 
 function loadRain(weatherData) {
